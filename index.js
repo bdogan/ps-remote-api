@@ -7,6 +7,20 @@ global.winston = new (require('winston').Logger)({
   ]
 });
 
+// Windows EventLogger
+var winLog = null;
+try {
+  var EventLogger = require('node-windows').EventLogger;
+  winLog = new EventLogger("Powershell NodeJS Wrapper");
+} catch (err) {
+  var winLog = null;
+}
+
+winston.on('logging', function (transport, level, msg, meta) {
+  if (!winLog || !winLog[level]) return;
+  winLog[level](msg);
+});
+
 // Set Log Level
 winston.level = process.env.LOG_LEVEL || 'info';
 winston.log('info', 'Winston Log: ready', winston.level);

@@ -13,7 +13,7 @@ var svc = new Service({
   name:'PowerShell Wrapper',
   description: 'Executes Powershell Functions',
   script: path.resolve('./index.js'),
-  env: [{ name: "PORT", value: port }, { name: "LOG_LEVEL", value: log_level }]
+  env: [{ name: "PORT", value: port }, { name: "LOG_LEVEL", value: log_level }, { name: "BASE_DIR", value: path.resolve('.') }]
 });
 
 // Define user properties
@@ -21,11 +21,23 @@ if (user.domain) svc.user.domain = user.domain;
 if (user.account) svc.user.account = user.account;
 if (user.password) svc.user.password = user.password;
 
-// Listen for the "install" event, which indicates the
-// process is available as a service.
+// Install
 svc.on('install',function(){
   console.log('Install Success!');
   svc.start();
 });
 
+// Uninstall complate
+svc.on('uninstall', function(){
+  console.log('Uninstall cuccess!');
+  svc.install();
+});
+
+// Already Installed
+svc.on('alreadyinstalled',function(){
+  console.log('Already Installed. Uninstalling...');
+  svc.uninstall();
+});
+
+// Install
 svc.install();
