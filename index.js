@@ -17,8 +17,8 @@ try {
 }
 
 winston.on('logging', function (transport, level, msg, meta) {
-  if (!winLog || !winLog[level]) return;
-  winLog[level](msg);
+  if (!winLog) return;
+  winLog[winLog[level] ? level : 'info'](msg);
 });
 
 // Set Log Level
