@@ -1,1 +1,5 @@
 node_modules/*
+.idea/*
+
+config/*
+!config/default.json.default

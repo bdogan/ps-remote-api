@@ -7,5 +7,11 @@
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "express": "^4.14.1",
+    "stateful-process-command-proxy": "^1.0.1",
+    "winston": "^2.3.1"
+  }
 }
